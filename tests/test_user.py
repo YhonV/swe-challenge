@@ -1,7 +1,7 @@
 async def test_create_user(async_client):
     response = await async_client.post("/api/v1/users/", json={
         "username"  : "cactu",
-        "email"     : "yhonvivas16@gmail.com",
+        "email"     : "test@gmail.com",
         "first_name": "Yhon",
         "last_name" : "Vivas",
         "role"      : "admin",
@@ -9,7 +9,7 @@ async def test_create_user(async_client):
     })
     assert response.status_code == 200
     assert response.json()["username"] == "cactu"
-    assert response.json()["email"] == "yhonvivas16@gmail.com"
+    assert response.json()["email"] == "test@gmail.com"
     assert response.json()["first_name"] == "Yhon"
     assert response.json()["last_name"] == "Vivas"
     assert response.json()["role"] == "admin"
@@ -18,7 +18,7 @@ async def test_create_user(async_client):
 async def test_create_user_with_email_duplicate(async_client):
     response = await async_client.post("/api/v1/users/", json={
         "username": "cactu",
-        "email": "yhonvivas16@gmail.com",
+        "email": "test@gmail.com",
         "first_name": "Yhon",
         "last_name": "Vivas",
         "role": "admin",
@@ -26,14 +26,14 @@ async def test_create_user_with_email_duplicate(async_client):
     })
     assert response.status_code == 200
     assert response.json()["username"] == "cactu"
-    assert response.json()["email"] == "yhonvivas16@gmail.com"
+    assert response.json()["email"] == "test@gmail.com"
     assert response.json()["first_name"] == "Yhon"
     assert response.json()["last_name"] == "Vivas"
     assert response.json()["role"] == "admin"
     assert response.json()["active"] == True
     newResponse = await async_client.post("/api/v1/users/", json={
         "username": "cactu",
-        "email": "yhonvivas16@gmail.com",
+        "email": "test@gmail.com",
         "first_name": "Yhon",
         "last_name": "Vivas",
         "role": "admin",
@@ -48,7 +48,7 @@ async def test_get_users(async_client):
 async def test_get_user_by_id(async_client):
     create_response = await async_client.post("/api/v1/users/", json={
         "username": "cactu",
-        "email": "yhonvivas16@gmail.com",
+        "email": "test@gmail.com",
         "first_name": "Yhon",
         "last_name": "Vivas",
         "role": "admin",
@@ -63,7 +63,7 @@ async def test_get_user_by_id(async_client):
 async def test_update_user(async_client):
     create_response = await async_client.post("/api/v1/users/", json={
         "username": "cactu",
-        "email": "yhonvivas16@gmail.com",
+        "email": "test@gmail.com",
         "first_name": "Yhon",
         "last_name": "Vivas",
         "role": "admin",
@@ -80,7 +80,7 @@ async def test_update_user(async_client):
 async def test_delete_user(async_client):
     create_response = await async_client.post("/api/v1/users/", json={
         "username": "cactu",
-        "email": "yhonvivas16@gmail.com",
+        "email": "test@gmail.com",
         "first_name": "Yhon",
         "last_name": "Vivas",
         "role": "admin",
