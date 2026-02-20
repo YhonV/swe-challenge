@@ -98,5 +98,5 @@ async def test_delete_user_not_found(async_client):
 
 async def test_get_user_not_found(async_client):
     fake_id = "00000000-0000-0000-0000-000000000000"
-    response = await async_client.delete(f"/api/v1/users/{fake_id}")
+    response = await async_client.get(f"/api/v1/users/{fake_id}")
     assert response.status_code == 404

@@ -1,11 +1,11 @@
 steps:
   - name: 'python:3.9-slim'
-    entrypoint: 'pip'
-    args: ["install", "-r", "requirements.txt"]
-
-  - name: 'python:3.9-slim'
-    entrypoint: 'python'
-    args: ['-m', 'pytest', '--junitxml=${SHORT_SHA}_test_log.xml']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        pip install -r requirements.txt
+        python -m pytest tests/ -v
 
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t',
@@ -13,15 +13,14 @@ steps:
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
-    args: [ 'run', 'deploy', 'user-management-api',
-            '--image', 'us-central1-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/user-management-api:${SHORT_SHA}',
-            '--region', 'us-central1',
-            '--platform', 'managed',
-            '--allow-unauthenticated' ]
+    args: ['run', 'deploy', 'user-management-api',
+           '--image', 'us-central1-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/user-management-api:${SHORT_SHA}',
+           '--region', 'us-central1',
+           '--platform', 'managed',
+           '--allow-unauthenticated']
 
 substitutions:
   _ARTIFACT_REGISTRY_REPO: user-management-api
 
 options:
   logging: CLOUD_LOGGING_ONLY
-  
