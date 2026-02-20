@@ -21,3 +21,6 @@ steps:
 
 substitutions:
   _ARTIFACT_REGISTRY_REPO: user-management-api
+
+options:
+  logging: CLOUD_LOGGING_ONLY
