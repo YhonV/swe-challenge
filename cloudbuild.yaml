@@ -29,10 +29,11 @@ steps:
             '--region', 'us-central1',
             '--platform', 'managed',
             '--allow-unauthenticated',
-            '--set-env-vars', 'DATABASE_URL=postgresql+asyncpg://postgres:t9JS-qTK3Q%24nESH@db.ycjjxniusehnrxjiudmx.supabase.co:5432/postgres' ]
+            '--set-env-vars', 'DATABASE_URL=${_DATABASE_URL}' ]
 
 substitutions:
   _ARTIFACT_REGISTRY_REPO: user-management-api
+  _DATABASE_URL: placeholder
 
 options:
   logging: CLOUD_LOGGING_ONLY
